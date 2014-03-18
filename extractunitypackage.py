@@ -78,7 +78,7 @@ for i in os.listdir(workingDir):
 # walk through them all and move the 'asset' files out and rename, building
 # the directory structure listed in the real filenames we found as we go
 
-os.mkdir(outputDir)
+os.makedirs(outputDir)
 
 for asset in mapping:
 	path, filename = os.path.split(mapping[asset])
