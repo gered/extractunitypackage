@@ -16,6 +16,7 @@
 # specified, the path should already exist.
 
 import os
+import stat
 import shutil
 import sys
 import tarfile
@@ -91,7 +92,12 @@ for asset in mapping:
 		os.makedirs(destDir)
 
 	shutil.move(source, destFile)
-
+	
+	# change file permissions for unix because under mac os x 
+	# (perhaps also other unix systems) all files are marked as executable
+	# for safety reasons os x prevent the access to the extracted files
+	os.chmod(destFile, stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP | stat.S_IROTH)
+	
 	print asset, '=>', mapping[asset]
 
 # done, cleanup any leftovers...
