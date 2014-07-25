@@ -15,6 +15,8 @@
 # extracted to. If omitted, the current working directory is used. If
 # specified, the path should already exist.
 
+# Update (by Entwicklerpages): Simple fixes for python3 support. Now works on both versions.
+
 import os
 import stat
 import shutil
@@ -22,7 +24,7 @@ import sys
 import tarfile
 
 if len(sys.argv) < 2:
-	print 'No input file specified.'
+	print ('No input file specified.')
 	sys.exit()
 
 name, extension = os.path.splitext(sys.argv[1])
@@ -37,7 +39,7 @@ workingDir = './.working'
 # can't proceed if the output dir exists already
 # but if the temp working dir exists, we clean it out before extracting
 if os.path.exists(outputDir):
-	print 'Output dir "' + outputDir + '" exists. Aborting.'
+	print ('Output dir "' + outputDir + '" exists. Aborting.')
 	sys.exit();
 if os.path.exists(workingDir):
 	shutil.rmtree(workingDir)
@@ -98,7 +100,7 @@ for asset in mapping:
 	# for safety reasons os x prevent the access to the extracted files
 	os.chmod(destFile, stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP | stat.S_IROTH)
 	
-	print asset, '=>', mapping[asset]
+	print (asset + ' => ' + mapping[asset])
 
 # done, cleanup any leftovers...
 shutil.rmtree(workingDir)
