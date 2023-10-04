@@ -17,6 +17,7 @@
 
 # Update (by Entwicklerpages): Simple fixes for python3 support. Now works on both versions.
 
+import io
 import os
 import stat
 import shutil
@@ -67,7 +68,7 @@ for i in os.listdir(workingDir):
 		for j in os.listdir(rootFile):
 			# grab the real path
 			if j == 'pathname':
-				lines = [line.strip() for line in open(os.path.join(rootFile, j))]
+				lines = [line.strip() for line in open(os.path.join(rootFile, j),'r',encoding="utf-8_sig")]
 				realPath = lines[0]     # should always be on the first line
 			elif j == 'asset':
 				hasAsset = True
@@ -83,6 +84,8 @@ for i in os.listdir(workingDir):
 # the directory structure listed in the real filenames we found as we go
 
 os.makedirs(outputDir)
+
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=sys.stdout.encoding, errors="replace")
 
 for asset in mapping:
 	path, filename = os.path.split(mapping[asset])
