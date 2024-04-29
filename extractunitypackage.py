@@ -46,7 +46,7 @@ if os.path.exists(workingDir):
 	shutil.rmtree(workingDir)
 
 # extract .unitypackage contents to a temporary space
-tar = tarfile.open(sys.argv[1], 'r:gz')
+tar = tarfile.open(sys.argv[1], 'r:gz', encoding="utf8")
 tar.extractall(workingDir);
 tar.close()
 
@@ -67,7 +67,7 @@ for i in os.listdir(workingDir):
 		for j in os.listdir(rootFile):
 			# grab the real path
 			if j == 'pathname':
-				lines = [line.strip() for line in open(os.path.join(rootFile, j))]
+				lines = [line.strip() for line in open(os.path.join(rootFile, j), encoding="utf8")]
 				realPath = lines[0]     # should always be on the first line
 			elif j == 'asset':
 				hasAsset = True
